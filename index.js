@@ -1,4 +1,5 @@
 const Koa = require('koa')
+const static = require('koa-static')
 const bodyParser = require('koa-bodyparser')
 const error = require('koa-json-error')
 const parameter = require('koa-parameter')
