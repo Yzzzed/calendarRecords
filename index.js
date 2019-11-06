@@ -6,6 +6,7 @@ const parameter = require('koa-parameter')
 const mongoose = require('mongoose')
 const app = new Koa()
 const routing = require('./app/routes/handleRoutes')
+const cors = require('koa-cors')
 const {
   connectDB
 } = require('./app/config/db')
@@ -26,8 +27,18 @@ app.use(error({
   }
 }))
 
+app.use(cors({
+  origin: ctx => {
+    return 'http://localhost:80'
+  },
+  methods: ['GET', 'POST', 'PATCH', 'DELETE'],
+  allowHeaders: ['Content-Type', 'Authorization', 'Accept']
+}))
+
 app.use(bodyParser())
 app.use(parameter(app))
 routing(app)
+
+
 
 app.listen(7777, () => console.log('app is listening on port 7777'))
