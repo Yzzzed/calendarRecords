@@ -11,6 +11,8 @@ const {
   connectDB
 } = require('./app/config/db')
 
+app.use(cors())
+
 mongoose.connect(connectDB, {
   useNewUrlParser: true,
   useUnifiedTopology: true
@@ -25,14 +27,6 @@ app.use(error({
     stack,
     ...rest
   }
-}))
-
-app.use(cors({
-  origin: ctx => {
-    return 'http://localhost:80'
-  },
-  methods: ['GET', 'POST', 'PATCH', 'DELETE'],
-  allowHeaders: ['Content-Type', 'Authorization', 'Accept']
 }))
 
 app.use(bodyParser())
