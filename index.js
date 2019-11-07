@@ -18,7 +18,8 @@ app.use(cors({
 mongoose.connect(connectDB, {
   useNewUrlParser: true,
   useUnifiedTopology: true
-}, () => console.log('mongooseDB connecting successed')) mongoose.connection.on('error', console.error)
+}, () => console.log('mongooseDB connecting successed'))
+mongoose.connection.on('error', console.error)
 
 app.use(error({
   postFormat: (e, {
@@ -30,7 +31,9 @@ app.use(error({
   }
 }))
 
-app.use(bodyParser()) app.use(parameter(app)) routing(app)
+app.use(bodyParser())
+app.use(parameter(app))
+routing(app)
 
 
 
