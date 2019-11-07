@@ -16,10 +16,12 @@ app.use(cors({
 }))
 
 app.use(async function (ctx, next) {
-  ctx.set("Access-Control-Allow-Credentials", true);
-  ctx.set("Access-Control-Max-Age", 86400000);
-  ctx.set("Access-Control-Allow-Methods", "OPTIONS, GET, PUT, POST, DELETE, PATCH");
-  ctx.set("Access-Control-Allow-Headers", "x-requested-with, accept, origin, content-type");
+  if (ctx.request.method == "OPTIONS") {
+    ctx.set("Access-Control-Allow-Credentials", true);
+    ctx.set("Access-Control-Max-Age", 86400000);
+    ctx.set("Access-Control-Allow-Methods", "OPTIONS, GET, PUT, POST, DELETE, PATCH");
+    ctx.set("Access-Control-Allow-Headers", "x-requested-with, accept, origin, content-type");
+  }
   await next()
 })
 
