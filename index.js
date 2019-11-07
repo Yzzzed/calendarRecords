@@ -12,7 +12,7 @@ const {
 } = require('./app/config/db')
 
 app.use(cors({
-  allowMethods: ['GET', 'POST', 'DELETE', 'PATCH', 'PUT']
+  allowMethods: ['GET', 'POST', 'DELETE', 'PATCH', 'PUT', 'HEAD', 'OPTIONS']
 }))
 
 mongoose.connect(connectDB, {
