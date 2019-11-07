@@ -11,19 +11,17 @@ const {
   connectDB
 } = require('./app/config/db')
 
-app.use(cors({
-  allowMethods: ['GET', 'POST', 'DELETE', 'PATCH', 'PUT', 'HEAD', 'OPTIONS']
-}))
-
 app.use(async function (ctx, next) {
   if (ctx.request.method == "OPTIONS") {
-    ctx.set("Access-Control-Allow-Credentials", true);
-    ctx.set("Access-Control-Max-Age", 86400000);
-    ctx.set("Access-Control-Allow-Methods", "OPTIONS, GET, PUT, POST, DELETE, PATCH");
-    ctx.set("Access-Control-Allow-Headers", "x-requested-with, accept, origin, content-type");
+    ctx.set("Access-Control-Allow-Credentials", true)
+    ctx.set("Access-Control-Max-Age", 86400000)
+    ctx.set("Access-Control-Allow-Methods", "OPTIONS, GET, PUT, POST, DELETE, PATCH")
+    ctx.set("Access-Control-Allow-Headers", "x-requested-with, accept, origin, content-type")
   }
   await next()
 })
+
+app.use(cors())
 
 mongoose.connect(connectDB, {
   useNewUrlParser: true,
