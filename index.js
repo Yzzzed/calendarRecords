@@ -15,6 +15,14 @@ app.use(cors({
   allowMethods: ['GET', 'POST', 'DELETE', 'PATCH', 'PUT', 'HEAD', 'OPTIONS']
 }))
 
+app.use(async function (ctx, next) {
+  ctx.set("Access-Control-Allow-Credentials", true);
+  ctx.set("Access-Control-Max-Age", 86400000);
+  ctx.set("Access-Control-Allow-Methods", "OPTIONS, GET, PUT, POST, DELETE, PATCH");
+  ctx.set("Access-Control-Allow-Headers", "x-requested-with, accept, origin, content-type");
+  await next()
+})
+
 mongoose.connect(connectDB, {
   useNewUrlParser: true,
   useUnifiedTopology: true
