@@ -4,7 +4,7 @@ const {
 } = require('../config/jwt')
 const Router = require('koa-router')
 const router = new Router({
-  prefix: '/api/users'
+  prefix: '/users'
 })
 const {
   find,
