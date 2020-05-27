@@ -68,6 +68,8 @@ class UsersCtl {
     }
   }
   async checkOwner(ctx, next) {
+    // console.log(ctx.params.id)
+    // console.log(ctx.state.user._id)
     if (ctx.params.id !== ctx.state.user._id) {
       ctx.throw(403, 'no permission')
     }
@@ -86,6 +88,10 @@ class UsersCtl {
       events: {
         type: 'array',
         itemType: 'object',
+        required: false
+      },
+      nickName: {
+        type: 'string',
         required: false
       }
     })
@@ -124,7 +130,8 @@ class UsersCtl {
     }
     const {
       _id,
-      username
+      username,
+      nickname
     } = user
     const token = jwt.sign({
       _id,
@@ -136,10 +143,12 @@ class UsersCtl {
       token,
       user: {
         id: _id,
-        username: username
+        username: username,
+        nickname: nickname
       }
     }
   }
+
 }
 
 module.exports = new UsersCtl()

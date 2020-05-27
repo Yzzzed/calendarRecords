@@ -11,9 +11,10 @@ const {
   find,
   findById,
   findByDate,
+  findByUserid,
   create,
   update,
-  delete: del,
+  del,
   checkPerformer,
   saveByDate
 } = require('../controllers/events')
@@ -27,6 +28,8 @@ router.get('/', find)
 router.get('/all', findAll)
 
 router.get('/:date', findByDate)
+
+router.get('/:date/:userid', auth, findByUserid)
 
 router.post('/', auth, create)
 

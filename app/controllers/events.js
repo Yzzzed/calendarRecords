@@ -8,12 +8,32 @@ class EventsCtl {
     const date = ctx.params.date
     const start = moment(date).utc().format()
     const end = moment(date).add(1, 'd').utc().format()
+
     ctx.body = await Event.find({
-      createTime: {
-        $gte: start,
-        $lt: end
-      }
+      // createTime: {
+      //   $gte: start,
+      //   $lt: end
+      // }
+      date: date
+    }).sort({
+      '_id': -1
     }).select('+performer').populate('performer', '-events')
+  }
+  async findByUserid(ctx) {
+    const date = ctx.params.date
+    const userid = ctx.params.userid
+    const start = moment(date).utc().format()
+    const end = moment(date).add(1, 'd').utc().format()
+    ctx.body = await Event.find({
+      // createTime: {
+      //   $gte: start,
+      //   $lt: end
+      // },
+      date: date,
+      performer: userid
+    }).sort({
+      '_id': -1
+    })
   }
   async find(ctx) {
     const q = new RegExp(ctx.query.q)
@@ -71,18 +91,32 @@ class EventsCtl {
       action: {
         type: 'string',
         required: false
+      },
+      detail: {
+        type: 'string',
+        required: false
+      },
+      category: {
+        type: 'string',
+        required: false
       }
     })
-    const event = await Event.findByIdAndUpdate(ctx.params.id, ctx.request.body, {
+    const event = await Event.findOneAndUpdate({
+      '_id': ctx.params.id
+    }, ctx.request.body, {
       new: true
     }).select('+performer').populate('performer', '-events')
     ctx.body = event
   }
-  async delete(ctx) {
-    await Event.findByIdAndRemove(ctx.params.id)
+  async del(ctx) {
+    const event = await Event.findByIdAndRemove(ctx.params.id)
+    if (!event) {
+      ctx.throw(404, 'user not found')
+    }
     ctx.status = 204
   }
-  async saveByDate(ctx) {}
+
+  async saveByDate() {}
 }
 
 module.exports = new EventsCtl()

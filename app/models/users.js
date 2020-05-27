@@ -18,6 +18,11 @@ const userSchema = new Schema({
     required: true,
     select: false
   },
+  nickname: {
+    type: String,
+    default: '',
+    select: true
+  },
   events: {
     type: [{
       type: Schema.Types.ObjectId,
@@ -25,6 +30,11 @@ const userSchema = new Schema({
     }],
     required: false,
     select: true
+  }
+}, {
+  timestamps: {
+    createdAt: 'createTime',
+    updatedAt: 'updateTime'
   }
 })
 
