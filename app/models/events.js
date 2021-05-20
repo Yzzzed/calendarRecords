@@ -12,19 +12,49 @@ const eventsSchema = new Schema({
   },
   category: {
     type: String,
-    required: true,
-    enum: ["1", "2", "3", "4", "5", "6", "7"],
-    default: "1",
+    required: false,
+    default: '',
     select: true
+  },
+  isCustom: {
+    type: Boolean,
+    required: true,
+    default: false,
+    select: true,
+  },
+  customCategory: {
+    type: String,
+    required: false,
+    default: '',
+    select: true,
   },
   date: {
     type: String,
-    default: moment(Date.now(), "YYYY-MM-DD"),
+    default: moment(Date.now(), 'YYYY-MM-DD'),
     required: true
+  },
+  time: {
+    type: String,
+    default: moment(Date.now(), 'HH:mm:ss'),
+  },
+  isDateExact: {
+    type: Boolean,
+    default: false,
+    select: true,
+  },
+  income: {
+    type: Number,
+    default: 0,
+    select: true,
+  },
+  haveIncome: {
+    type: Boolean,
+    default: false,
+    select: true,
   },
   action: {
     type: String,
-    default: "",
+    default: '',
     required: true
   },
   detail: {
@@ -34,7 +64,7 @@ const eventsSchema = new Schema({
   },
   performer: {
     type: Schema.Types.ObjectId,
-    ref: "User",
+    ref: 'User',
     required: true,
     select: true
   },
